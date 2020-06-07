@@ -1,15 +1,15 @@
 # KCB_financial_style
 ### Dacon - KCB 금융스타일 시각화 분석
 ## 개요
-* DACON의 KCB 금융 스타일 시각화 경진대회(종료,제주part)의 데이터를 활용한 분석을 시도
+* DACON의 KCB 금융 스타일 시각화 경진대회(종료,제주part)의 데이터를 활용한 분석&시각화
 
 
 ## requirements
-(업데이트예정)
+* pip install -r requirements.txt
 
 
 ## path
-(업데이트예정)
+* root : User\data (folder)
 
 
 ## 데이터출처,설명
@@ -57,4 +57,6 @@
 
 
 ## Report
-(업데이트예정)
+* 성별에 따른 직업비율 변수확인
+
+* 성별, 나이에 따른 평균(수입,지출,대출,해외소비액) 확인
