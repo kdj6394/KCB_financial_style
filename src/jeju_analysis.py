@@ -26,7 +26,7 @@ def sns_facet_gride(data:str,col:str,hue:str,x:str,y:str):
     fig = plt.gcf()
     return fig
 
-def sns_lineplot(x:str,y:str,hue:str,data:str):
+def sns_lineplot(x:str,y:str,hue:str,data:str,round_check:str):
     plt.figure(figsize=(19.2,10.8))
     ax = sns.lineplot(x=x,y=y,hue=hue,data=data,marker='o')
     ax.ticklabel_format(style='plain')
@@ -36,15 +36,19 @@ def sns_lineplot(x:str,y:str,hue:str,data:str):
     plt.legend()
     plt.grid()
     for i,v in enumerate(data[y]):
+        if round_check == 'round':
+            str_val = (int(data[x][i]),round(data[y][i],3))
+        else:
             str_val = (int(data[x][i]),int(data[y][i]))
-            plt.text(data[x][i],v,str_val,fontsize=10,horizontalalignment = 'left',verticalalignment = 'center',fontweight='bold')
+        plt.text(data[x][i],v,str_val,fontsize=10,horizontalalignment = 'left',verticalalignment = 'center',fontweight='bold')
 
     fig = plt.gcf()
     return fig
 
 
 if __name__ == '__main__':
-    root = r'C:\Users\82104\Documents\GitHub\KCB_financial_style\data'
+    # root = r'C:\Users\82104\Documents\GitHub\KCB_financial_style\data'
+    root = sys.argv[1]
     csv_name = 'jeju_financial_life_data.csv'
     csv_file = join(root,csv_name)
     img_save_path = join(dirname(root),'img')
@@ -52,6 +56,7 @@ if __name__ == '__main__':
 
     data = pd.read_csv(csv_file,encoding='utf-8')
 
+    '''
     # job_ratio,sex,age
     job_ratio = data[['job_majorc','job_smallc','job_public','job_profession','job_self'
                         ,'job_none','job_other']].groupby([data.sex,data.age,data.zip_cd ]).mean().reset_index()
@@ -78,10 +83,32 @@ if __name__ == '__main__':
         x_sex_age_table = pd.DataFrame(income_spend_debt_table[x_sex_age]).reset_index()
         x_sex_age_table.columns = ["index","sex","age","variable",variable_name]
         print(x_sex_age_table)
-        x_fig = sns_lineplot(x='age',y=variable_name,hue='sex',data=x_sex_age_table)
+        x_fig = sns_lineplot(x='age',y=variable_name,hue='sex',data=x_sex_age_table,round_check='int')
         x_fig.savefig(join(img_save_path,'avg_{}.png'.format(variable_name)),dpi=x_fig.dpi,bbox_inches='tight', pad_inches=0.5)
 
     # sex&age, all
-    all_fig = sns_lineplot(x='age',y='avg',hue='variable',data=income_spend_debt_table)
+    all_fig = sns_lineplot(x='age',y='avg',hue='variable',data=income_spend_debt_table,round_check='int')
     all_fig.savefig(join(img_save_path,'avg_all.png'),dpi=all_fig.dpi,bbox_inches='tight', pad_inches=0.5)
 
+
+    # sex&age, medium_resid_rat,large_resid_rat,vehicle_own_rat
+    visible = data[['medium_resid_rat','large_resid_rat','vehicle_own_rat']]
+    visible = visible[visible.medium_resid_rat != -999999]
+    visible = visible[visible.large_resid_rat != -999999]
+    visible = visible.groupby([data.sex,data.age]).mean().reset_index()
+    visible_table = pd.melt(visible, id_vars=['sex','age'],value_vars=['medium_resid_rat','large_resid_rat','vehicle_own_rat'],value_name='avg')
+    visible.loc[visible['sex'] == 1,'sex'] = 'male'
+    visible.loc[visible['sex'] == 2,'sex'] = 'female'
+    visible = pd.DataFrame(visible)
+    
+    for visible_name in ['medium_resid_rat','large_resid_rat','vehicle_own_rat']:
+        x_visible = visible[['sex','age',visible_name]]
+        print(x_visible)
+        x_fig = sns_lineplot(x='age',y=visible_name,hue='sex',data=x_visible,round_check='round')
+        x_fig.savefig(join(img_save_path,'avg_{}.png'.format(visible_name)),dpi=x_fig.dpi,bbox_inches='tight', pad_inches=0.5)
+    '''
+
+    # to do
+    # rich people show on map
+    # check correlation
+    # next?
