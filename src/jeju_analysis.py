@@ -47,7 +47,8 @@ def sns_lineplot(x:str,y:str,hue:str,data:str,round_check:str):
 
 
 if __name__ == '__main__':
-    root = r'C:\Users\82104\Documents\GitHub\KCB_financial_style\data'
+    # root = r'C:\Users\82104\Documents\GitHub\KCB_financial_style\data'
+    root = r'C:\ProgramData\Anaconda3\kdj\Git\KCB_financial_style\data'
     # root = sys.argv[1]
     csv_name = 'jeju_financial_life_data.csv'
     csv_file = join(root,csv_name)
