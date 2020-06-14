@@ -47,8 +47,7 @@ def sns_lineplot(x:str,y:str,hue:str,data:str,round_check:str):
 
 
 if __name__ == '__main__':
-    # root = r'C:\Users\82104\Documents\GitHub\KCB_financial_style\data'
-    root = r'C:\ProgramData\Anaconda3\kdj\Git\KCB_financial_style\data'
+    root = r'C:\Users\82104\Documents\GitHub\KCB_financial_style\data'
     # root = sys.argv[1]
     csv_name = 'jeju_financial_life_data.csv'
     csv_file = join(root,csv_name)
@@ -85,11 +84,12 @@ if __name__ == '__main__':
         x_sex_age_table.columns = ["index","sex","age","variable",variable_name]
         print(x_sex_age_table)
         x_fig = sns_lineplot(x='age',y=variable_name,hue='sex',data=x_sex_age_table,round_check='int')
-        x_fig.savefig(join(img_save_path,'avg_{}.png'.format(variable_name)),dpi=x_fig.dpi,bbox_inches='tight', pad_inches=0.5)
+        x_fig.savefig(join(img_save_path,'{}.png'.format(variable_name)),dpi=x_fig.dpi,bbox_inches='tight', pad_inches=0.5)
 
     # sex&age, all
-    all_fig = sns_lineplot(x='age',y='avg',hue='variable',data=income_spend_debt_table,round_check='int')
-    all_fig.savefig(join(img_save_path,'avg_all.png'),dpi=all_fig.dpi,bbox_inches='tight', pad_inches=0.5)
+    all_sex_age_fig = sns_lineplot(x='age',y='avg',hue='variable',data=income_spend_debt_table,round_check='int')
+    all_sex_age_fig.savefig(join(img_save_path,'avg_all.png'),dpi=all_fig.dpi,bbox_inches='tight', pad_inches=0.5)
+
 
     # sex&age, medium_resid_rat,large_resid_rat,vehicle_own_rat
     visible = data[['medium_resid_rat','large_resid_rat','vehicle_own_rat']]
@@ -104,13 +104,11 @@ if __name__ == '__main__':
         x_visible = visible[['sex','age',visible_name]]
         print(x_visible)
         x_fig = sns_lineplot(x='age',y=visible_name,hue='sex',data=x_visible,round_check='round')
-        x_fig.savefig(join(img_save_path,'avg_{}.png'.format(visible_name)),dpi=x_fig.dpi,bbox_inches='tight', pad_inches=0.5)
-
+        x_fig.savefig(join(img_save_path,'{}.png'.format(visible_name)),dpi=x_fig.dpi,bbox_inches='tight', pad_inches=0.5)
     '''
-
-
+    
+    
     # to do
-    # all visible plot
     # rich people show on map
     # check correlation
     # next?
