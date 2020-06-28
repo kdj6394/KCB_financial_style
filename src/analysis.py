@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
     # job_ratio,sex,age
     job_ratio = data[['job_majorc','job_smallc','job_public','job_profession','job_self'
-                        ,'job_none','job_other']].groupby([data.sex,data.age,data.zip_cd ]).mean().reset_index()
+                        ,'job_none','job_other']].groupby([data.sex,data.age,data.zip_cd]).mean().reset_index()
     job_ratio = job_ratio.sort_values('job_majorc',ascending=False)
     job_ratio_sex = data[['job_majorc','job_smallc','job_public','job_profession','job_self'
                             ,'job_none','job_other']].groupby([data.sex]).mean().reset_index()
