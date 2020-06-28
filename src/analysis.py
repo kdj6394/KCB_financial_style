@@ -45,10 +45,21 @@ def sns_lineplot(x:str,y:str,hue:str,data:str,round_check:str):
     fig = plt.gcf()
     return fig
 
+def corr_heatmap(corr_data,title,cmap):
+    mask = np.zeros_like(corr_data, dtype=np.bool)
+    mask[np.triu_indices_from(mask)] = True
+    plt.figure(figsize=(19.2,10.8))
+    plt.title(title,fontsize=25)
+    sns.heatmap(corr_data,square=True,mask=mask,cmap=cmap
+                ,annot=True,linewidths=1)
+    fig = plt.gcf()
+    return fig
+
 
 if __name__ == '__main__':
-    root = r'C:\Users\82104\Documents\GitHub\KCB_financial_style\data'
     # root = sys.argv[1]
+    root = r'C:\Users\82104\Documents\GitHub\KCB_financial_style\data'
+
     csv_name = 'jeju_financial_life_data.csv'
     csv_file = join(root,csv_name)
     img_save_path = join(dirname(root),'img')
@@ -56,7 +67,7 @@ if __name__ == '__main__':
 
     data = pd.read_csv(csv_file,encoding='utf-8')
 
-    '''
+
     # job_ratio,sex,age
     job_ratio = data[['job_majorc','job_smallc','job_public','job_profession','job_self'
                         ,'job_none','job_other']].groupby([data.sex,data.age,data.zip_cd ]).mean().reset_index()
@@ -105,10 +116,10 @@ if __name__ == '__main__':
         print(x_visible)
         x_fig = sns_lineplot(x='age',y=visible_name,hue='sex',data=x_visible,round_check='round')
         x_fig.savefig(join(img_save_path,'{}.png'.format(visible_name)),dpi=x_fig.dpi,bbox_inches='tight', pad_inches=0.5)
-    '''
-    
-    
-    # to do
-    # rich people show on map
-    # check correlation
-    # next?
+
+
+
+    # all correlation
+    all_corr = data.corr()
+    all_corr_fig = corr_heatmap(all_corr,'All correlation','Spectral')
+    all_corr_fig.savefig(join(img_save_path,'all_coreelation.png'),dpi=all_corr_fig.dpi)
