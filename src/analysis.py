@@ -123,3 +123,8 @@ if __name__ == '__main__':
     all_corr = data.corr()
     all_corr_fig = corr_heatmap(all_corr,'All correlation','Spectral')
     all_corr_fig.savefig(join(img_save_path,'all_coreelation.png'),dpi=all_corr_fig.dpi)
+
+
+    # todo
+    # 1. 상관계수
+    # 2. 회귀선 (가정,변수선택)
