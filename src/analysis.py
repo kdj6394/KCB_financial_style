@@ -57,8 +57,7 @@ def corr_heatmap(corr_data,title,cmap):
 
 
 if __name__ == '__main__':
-    # root = sys.argv[1]
-    root = r'C:\Users\82104\Documents\GitHub\KCB_financial_style\data'
+    root = sys.argv[1]
 
     csv_name = 'jeju_financial_life_data.csv'
     csv_file = join(root,csv_name)
@@ -66,7 +65,6 @@ if __name__ == '__main__':
     os.makedirs(img_save_path,exist_ok=True)
 
     data = pd.read_csv(csv_file,encoding='utf-8')
-
 
     # job_ratio,sex,age
     job_ratio = data[['job_majorc','job_smallc','job_public','job_profession','job_self'
@@ -118,13 +116,7 @@ if __name__ == '__main__':
         x_fig.savefig(join(img_save_path,'{}.png'.format(visible_name)),dpi=x_fig.dpi,bbox_inches='tight', pad_inches=0.5)
 
 
-
     # all correlation
     all_corr = data.corr()
     all_corr_fig = corr_heatmap(all_corr,'All correlation','Spectral')
     all_corr_fig.savefig(join(img_save_path,'all_coreelation.png'),dpi=all_corr_fig.dpi)
-
-
-    # todo
-    # 1. 상관계수
-    # 2. 회귀선 (가정,변수선택)

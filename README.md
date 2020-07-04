@@ -113,3 +113,5 @@
 
 ![이미지](https://github.com/kdj6394/KCB_financial_style/blob/master/img/all_coreelation.png?raw=true)
 
+* 전체 변수에 관한 상관관계이다.
+* 눈에 띄는 쌍으로는 avg_debt - avg_debt_collateral 과 medium_reside_rat - large_reside_rat 그리고 job_samllc - age 이다.
